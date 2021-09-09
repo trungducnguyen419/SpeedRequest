@@ -104,9 +104,41 @@ namespace SpeedRequest
             if (responseString != null) size = SizeSuffix(responseString.Length);
             return responseString;
         }
-        public string RequestUrl(string url, Method method, string postData, string contentType = null, MultipartContent multipartContent = null)
+        public string RequestUrl(string url, Method method, string contentType = "application/x-www-form-urlencoded", string postData = null)
         {
-            if (contentType == null) contentType = "";
+            stopwatch.Reset();
+            stopwatch.Start();
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.DefaultConnectionLimit = 256;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                DefaultHeaders(request, method, contentType);
+                if (postData != null)
+                {
+                    var data = Encoding.UTF8.GetBytes(postData);
+                    request.ContentLength = data.Length;
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                return SuccessResponse(response);
+            }
+            catch (WebException ex)
+            {
+                return WebExceptionResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ExceptionResponse(ex));
+            }
+        }
+        public string RequestUrl(string url, Method method, string contentType = "application/x-www-form-urlencoded", MultipartContent multipartContent = null)
+        {
             stopwatch.Reset();
             stopwatch.Start();
             try
@@ -129,15 +161,6 @@ namespace SpeedRequest
                         }
                     }
                 }
-                else if (postData != null)
-                {
-                    var data = Encoding.UTF8.GetBytes(postData);
-                    request.ContentLength = data.Length;
-                    using (var stream = request.GetRequestStream())
-                    {
-                        stream.Write(data, 0, data.Length);
-                    }
-                }
                 var response = (HttpWebResponse)request.GetResponse();
                 return SuccessResponse(response);
             }
@@ -145,10 +168,34 @@ namespace SpeedRequest
             {
                 return WebExceptionResponse(ex);
             }
-            //catch (Exception ex)
-            //{
-            //    throw new Exception(ExceptionResponse(ex));
-            //}
+            catch (Exception ex)
+            {
+                throw new Exception(ExceptionResponse(ex));
+            }
+        }
+        public string RequestUrl(string url)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.DefaultConnectionLimit = 256;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                DefaultHeaders(request, 0, null);
+                var response = (HttpWebResponse)request.GetResponse();
+                return SuccessResponse(response);
+            }
+            catch (WebException ex)
+            {
+                return WebExceptionResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ExceptionResponse(ex));
+            }
         }
     }
 }
