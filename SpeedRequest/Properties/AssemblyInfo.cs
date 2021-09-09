@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SpeedRequest")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("SpeedRequest will help you run requests quickly and smoothly.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("MineBay Team")]
 [assembly: AssemblyProduct("SpeedRequest")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Copyright © 2021 MineBay Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
