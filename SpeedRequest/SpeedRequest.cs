@@ -84,7 +84,10 @@ namespace SpeedRequest
                 if (responseString != null) size = SizeSuffix(responseString.Length);
                 return responseString;
             }
-            return null;
+            else
+            {
+                throw new Exception(ex.Message.ToString());
+            }    
         }
         private string ExceptionResponse(Exception ex)
         {
