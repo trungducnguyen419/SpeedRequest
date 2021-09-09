@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-namespace SpeedRequest
+﻿namespace SpeedRequest
 {
     internal class RemoteRequests : Requests
     {
@@ -8,6 +7,13 @@ namespace SpeedRequest
         public string Connection { get; set; }
         public string Host { get; set; }
         public string Referer { get; set; }
-        public List<Headers> Headers { get; set; }
+        public bool AllowAutoRedirect { get; set; }
+        public bool IgnoreProtocolErrors { get; set; }
+        public int Timeout { get; set; }
+        public int ContinueTimeout { get; set; }
+        public int ReadWriteTimeout { get; set; }
+        public bool KeepAlive { get; set; }
+        public RemoteProxy Proxy { get; set; }
+        public Headers[] Headers { get; set; }
     }
 }

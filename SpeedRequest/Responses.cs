@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-namespace SpeedRequest
+﻿namespace SpeedRequest
 {
     public interface Responses
     {
@@ -8,6 +7,7 @@ namespace SpeedRequest
         public string Timeout { get; }
         public string ErrorMessage { get; }
         public string Size { get; }
-        public List<Headers> HeadersResponse { get; }
+        public Cookies[] Cookies { get; }
+        public Headers[] HeadersResponse { get; }
     }
 }

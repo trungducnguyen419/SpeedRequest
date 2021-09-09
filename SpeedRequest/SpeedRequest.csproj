@@ -43,15 +43,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BytesContent.cs" />
+    <Compile Include="Cookies.cs" />
     <Compile Include="Headers.cs" />
+    <Compile Include="HttpProxyAuthenticationClient.cs" />
+    <Compile Include="HttpProxyClient.cs" />
     <Compile Include="Method.cs" />
+    <Compile Include="RemoteProxy.cs" />
     <Compile Include="Requests.cs" />
     <Compile Include="Responses.cs" />
     <Compile Include="MultipartContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoteRequests.cs" />
     <Compile Include="RemoteResponses.cs" />
+    <Compile Include="Socks4aProxyClient.cs" />
+    <Compile Include="Socks4ProxyClient.cs" />
+    <Compile Include="Socks5ProxyClient.cs" />
     <Compile Include="SpeedRequest.cs" />
+    <Compile Include="TypeProxy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

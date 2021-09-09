@@ -13,7 +13,8 @@ namespace SpeedRequest
         private string timeout { get; set; }
         private string errormessage { get; set; }
         private string size { get; set; }
-        private List<Headers> headersresponse { get; set; }
+        private Cookies[] cookies { get; set; }
+        private Headers[] headersresponse { get; set; }
         Stopwatch stopwatch = new Stopwatch();
         public SpeedRequest() { }
 
@@ -30,7 +31,7 @@ namespace SpeedRequest
         }
         public Responses Responses()
         {
-            return new RemoteResponses(statusCode, error, timeout, errormessage, size, headersresponse);
+            return new RemoteResponses(statusCode, error, timeout, errormessage, size, cookies, headersresponse);
         }
         public Requests Requests()
         {
@@ -38,19 +39,18 @@ namespace SpeedRequest
         }
         private void SetHeadersResponse(HttpWebResponse response)
         {
-            if (headersresponse != null) headersresponse = null;
-            headersresponse = new List<Headers>();
+            List<Headers> listheaders = new List<Headers>();
             foreach (string key in response.Headers.AllKeys)
             {
-                headersresponse.Add(new Headers() { Name = key, Value = response.Headers[key] });
-            }    
+                listheaders.Add(new Headers() { Name = key, Value = response.Headers[key] });
+            }
+            headersresponse = listheaders.ToArray();
         }
         private void DefaultHeaders(HttpWebRequest request, Method method, string contentType)
         {
             request.Timeout = -1;
             request.ReadWriteTimeout = -1;
             request.ContinueTimeout = -1;
-            request.AllowAutoRedirect = true;
             request.CookieContainer = new CookieContainer();
             if (Requests().UserAgent != null) request.UserAgent = Requests().UserAgent;
             if (Requests().Accept != null) request.Accept = Requests().Accept;
@@ -59,6 +59,12 @@ namespace SpeedRequest
             else request.ContentType = "application/x-www-form-urlencoded";
             if (Requests().Host != null) request.Host = Requests().Host;
             if (Requests().Referer != null) request.Referer = Requests().Referer;
+            request.AllowAutoRedirect = Requests().AllowAutoRedirect;
+            if (Requests().Timeout != 0) request.Timeout = Requests().Timeout;
+            if (Requests().ContinueTimeout != 0) request.ContinueTimeout = Requests().ContinueTimeout;
+            if (Requests().ReadWriteTimeout != 0) request.ReadWriteTimeout = Requests().ReadWriteTimeout;
+            request.KeepAlive = Requests().KeepAlive;
+            if (Requests().Proxy.Proxy != null) request.Proxy = Requests().Proxy.Proxy;
             if (Requests().Headers != null)
             {
                 foreach (Headers headers in Requests().Headers)
@@ -72,6 +78,7 @@ namespace SpeedRequest
         private string WebExceptionResponse(WebException ex)
         {
             stopwatch.Stop();
+            if (Requests().IgnoreProtocolErrors == false) throw new Exception(ex.Message.ToString());
             var response = (HttpWebResponse)ex.Response;
             if (response != null)
             {
@@ -79,15 +86,18 @@ namespace SpeedRequest
                 error = true;
                 errormessage = ex.Message.ToString();
                 timeout = stopwatch.ElapsedMilliseconds + " ms";
+                List<Cookies> list_cookies = new List<Cookies>();
+                foreach (Cookie cok in response.Cookies)
+                {
+                    list_cookies.Add(new Cookies() { Name = cok.Name, Value = cok.Value, Domain = cok.Domain, Path = cok.Path, Port = cok.Port, Secure = cok.Secure, TimeStamp = cok.TimeStamp, Expires = cok.Expires, Expired = cok.Expired, Discard = cok.Discard, Comment = cok.Comment, CommentUri = cok.CommentUri, Version = cok.Version });
+                }
+                cookies = list_cookies.ToArray();
                 SetHeadersResponse(response);
                 string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 if (responseString != null) size = SizeSuffix(responseString.Length);
                 return responseString;
             }
-            else
-            {
-                throw new Exception(ex.Message.ToString());
-            }    
+            throw new Exception(ex.Message.ToString());
         }
         private string ExceptionResponse(Exception ex)
         {
@@ -102,6 +112,12 @@ namespace SpeedRequest
             statusCode = (int)response.StatusCode + " " + response.StatusCode.ToString();
             error = false;
             timeout = stopwatch.ElapsedMilliseconds + " ms";
+            List<Cookies> list_cookies = new List<Cookies>();
+            foreach (Cookie cok in  response.Cookies)
+            {
+                list_cookies.Add(new Cookies() { Name = cok.Name, Value = cok.Value, Domain = cok.Domain, Path = cok.Path, Port = cok.Port, Secure = cok.Secure, TimeStamp = cok.TimeStamp, Expires = cok.Expires, Expired = cok.Expired, Discard = cok.Discard, Comment = cok.Comment, CommentUri = cok.CommentUri, Version = cok.Version });
+            }
+            cookies = list_cookies.ToArray();
             SetHeadersResponse(response);
             string responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
             if (responseString != null) size = SizeSuffix(responseString.Length);
