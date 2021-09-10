@@ -1,5 +1,6 @@
 # SpeedRequest
-Speed Request
+SpeedRequest will help you run requests quickly and smoothly.
+
 ## Donate
 - **Paypal**: trungd419@gmail.com
 
@@ -11,6 +12,7 @@ Speed Request
 ```
 Install-Package SpeedRequest
 ```
+
 # List Command
 Example
 ```js
