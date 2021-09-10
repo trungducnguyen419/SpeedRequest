@@ -113,5 +113,5 @@ request.Proxy = Socks4aProxyClient.Parse("127.0.0.1:9000");
 // Type: Socks5
 request.Proxy = Socks5ProxyClient.Parse("127.0.0.1:9000");
 // Type: Proxy Authentication
-request.Proxy = HttpProxyAuthenticationClient.Parse("127.0.0.1", "8080", "username", "password");
+request.Proxy = HttpProxyAuthenticationClient.Parse("127.0.0.1", 8080, "username", "password");
 ```
