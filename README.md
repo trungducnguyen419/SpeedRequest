@@ -5,8 +5,8 @@ SpeedRequest will help you run requests quickly and smoothly.
 - **Paypal**: trungd419@gmail.com
 
 ## Contacts
-**Facebook**: [trungducmcgamer](https://facebook.com/trungducmcgamer/)  
-**E-Mail**: trungd419@gmail.com
+- **Facebook**: [trungducmcgamer](https://facebook.com/trungducmcgamer/)  
+- **E-Mail**: trungd419@gmail.com
 
 # Installation via [NuGet](https://www.nuget.org/)
 ```
