@@ -7,7 +7,10 @@ SpeedRequest will help you run requests quickly and smoothly.
 - **MBBank**: 9704229287539964 - Nguyen Trung Thanh
 
 ## Contacts
-- **Facebook**: [trungducmcgamer](https://facebook.com/trungducmcgamer/)  
+- **Facebook**: [trungducmcgamer](https://www.facebook.com/trungducmcgamer/)  
+- **Instagram**: [trungducmcvn](https://www.instagram.com/trungducmcvn/)
+- **Github**: [trungducmcgamer](https://github.com/trungducmcgamer/)
+- **Youtube**: [trungducmcgamer](https://www.youtube.com/trungducmcgamer/)
 - **Discord**: [TrungDucMC_VN #2707](#)
 - **E-Mail**: trungd419@gmail.com
 
