@@ -23,7 +23,7 @@ Install-Package SpeedRequest
 - HEAD
 - CONNECT
 - TRACE
-
+Use
 ```csharp
 using SpeedRequest;
 ```
