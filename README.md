@@ -64,6 +64,11 @@ Post data:
 string response = request.RequestUrl("https://example.com", Method.POST, "application/x-www-form-urlencoded", "login=username&password=password");
 ```
 
+Get receive the message body of the response:
+```csharp
+request.Requests().IgnoreProtocolErrors = true;
+```
+
 Get response headers:
 ```csharp
 Headers[] headersResponse = request.Responses().HeadersResponse;
