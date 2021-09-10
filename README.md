@@ -46,8 +46,7 @@ finally {
 }
 ```
 
-### Send multipart requests with fields and files
-Use this code:
+Send multipart requests with fields and files:
 ```csharp
 var multipartContent = new MultipartContent();
 multipartContent.AddString("login", "username");
@@ -61,6 +60,11 @@ Get page source:
 string response = request.RequestUrl("https://example.com");
 ```
 
+Post data:
+```csharp
+string response = request.RequestUrl("https://example.com", Method.POST, "application/x-www-form-urlencoded", "login=username&password=password");
+```
+
 Get response headers:
 ```csharp
 Headers[] headersResponse = request.Responses().HeadersResponse;
@@ -70,6 +74,7 @@ foreach (Headers headers in headersResponse)
     Console.WriteLine($"{headers.Name}: {headers.Value}");
 }
 ```
+
 Download a file:
 ```csharp
 request.ToFile("https://example.com/file.zip", "C:\\myDownloadedFile.zip");
