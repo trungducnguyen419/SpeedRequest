@@ -12,6 +12,24 @@ SpeedRequest will help you run requests quickly and smoothly.
 ```
 Install-Package SpeedRequest
 ```
+# Features
+### HTTP Methods
+- GET
+- POST
+- PATCH
+- DELETE
+- PUT
+- OPTIONS
+- HEAD
+- CONNECT
+- TRACE
+
+```csharp
+using SpeedRequest;
+```
+
+
+
 
 # List Command
 Example
