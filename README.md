@@ -3,6 +3,8 @@ SpeedRequest will help you run requests quickly and smoothly.
 
 ## Donate
 - **Paypal**: trungd419@gmail.com
+- **VietTinBank**: 104869915061 - Nguyen Trung Thanh
+- **MBBank**: 9704229287539964 - Nguyen Trung Thanh
 
 ## Contacts
 - **Facebook**: [trungducmcgamer](https://facebook.com/trungducmcgamer/)  
