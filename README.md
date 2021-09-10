@@ -45,6 +45,7 @@ finally {
     request?.Dispose();
 }
 ```
+
 ### Send multipart requests with fields and files
 Use this code:
 ```csharp
@@ -54,10 +55,12 @@ multipartContent.AddString("password", "password");
 multipartContent.AddFile(@"C:\hp.rar", "file1", "hp.rar");
 string response = request.RequestUrl("https://example.com", Method.POST, "application/x-www-form-urlencoded", multipartContent);
 ```
+
 Get page source:
 ```csharp
 string response = request.RequestUrl("https://example.com");
 ```
+
 Get response headers:
 ```csharp
 Headers[] headersResponse = request.Responses().HeadersResponse;
@@ -67,6 +70,11 @@ foreach (Headers headers in headersResponse)
     Console.WriteLine($"{headers.Name}: {headers.Value}");
 }
 ```
+Download a file:
+```csharp
+request.ToFile("https://example.com/file.zip", "C:\\myDownloadedFile.zip");
+```
+
 Get Cookies:
 ```csharp
 string response = request.RequestUrl("https://example.com");
