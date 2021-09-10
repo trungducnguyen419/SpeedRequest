@@ -37,12 +37,11 @@ try {
     request = new SpeedRequest();
     // Do something 
 }
-catch (Exception ex) {
-	// Unhandled exceptions
+catch (WebException ex) {
+    // Http error handling
 }
-finally {
-    // Cleanup in the end if initialized
-    request?.Dispose();
+catch (Exception ex) {
+    // Unhandled exceptions
 }
 ```
 
