@@ -23,17 +23,13 @@ Install-Package SpeedRequest
 - HEAD
 - CONNECT
 - TRACE
-### Using directive
+
+
+
+
+# How to:
+### Get started
+Add in the beggining of file.
 ```csharp
 using SpeedRequest;
-```
-
-
-
-
-# List Command
-Example
-```js
-   SpeedRequest request = new SpeedRequest();
-   request.RequestUrl("https://example.com/");
 ```
