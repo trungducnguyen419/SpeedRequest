@@ -23,7 +23,7 @@ Install-Package SpeedRequest
 - HEAD
 - CONNECT
 - TRACE
-Using directive:
+### Using directive
 ```csharp
 using SpeedRequest;
 ```
