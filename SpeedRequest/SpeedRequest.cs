@@ -15,9 +15,8 @@ namespace SpeedRequest
         private string size { get; set; }
         private Cookies[] cookies { get; set; }
         private Headers[] headersresponse { get; set; }
+        Requests requests = new RemoteRequests();
         Stopwatch stopwatch = new Stopwatch();
-        public SpeedRequest() { }
-
         private readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         private string SizeSuffix(long value, int decimalPlaces = 0)
         {
@@ -35,7 +34,7 @@ namespace SpeedRequest
         }
         public Requests Requests()
         {
-            return new RemoteRequests();
+            return requests;
         }
         private void SetHeadersResponse(HttpWebResponse response)
         {
