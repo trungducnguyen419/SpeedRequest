@@ -8,6 +8,7 @@ SpeedRequest will help you run requests quickly and smoothly.
 
 ## Contacts
 - **Facebook**: [trungducmcgamer](https://facebook.com/trungducmcgamer/)  
+- **Discord**: [TrungDucMC_VN #2707]
 - **E-Mail**: trungd419@gmail.com
 
 # Installation via [NuGet](https://www.nuget.org/)
