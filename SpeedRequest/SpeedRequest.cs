@@ -15,6 +15,7 @@ namespace SpeedRequest
         private string size { get; set; }
         private Cookies[] cookies { get; set; }
         private Headers[] headersresponse { get; set; }
+        private HttpWebResponse HttpWebResponseOther {  get; set; }
         Requests requests = new RemoteRequests();
         Stopwatch stopwatch = new Stopwatch();
         private readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
@@ -122,7 +123,7 @@ namespace SpeedRequest
             if (responseString != null) size = SizeSuffix(responseString.Length);
             return responseString;
         }
-        public string RequestUrl(string url, Method method, string contentType = "application/x-www-form-urlencoded", string postData = null)
+        public string RequestUrl(string url, Method method, string contentType, string postData)
         {
             stopwatch.Reset();
             stopwatch.Start();
@@ -144,6 +145,7 @@ namespace SpeedRequest
                     }
                 }
                 var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
                 return SuccessResponse(response);
             }
             catch (WebException ex)
@@ -155,7 +157,7 @@ namespace SpeedRequest
                 return ExceptionResponse(ex);
             }
         }
-        public string RequestUrl(string url, Method method, string contentType = "application/x-www-form-urlencoded", MultipartContent multipartContent = null)
+        public string RequestUrl(string url, Method method, string contentType, MultipartContent multipartContent)
         {
             stopwatch.Reset();
             stopwatch.Start();
@@ -180,6 +182,103 @@ namespace SpeedRequest
                     }
                 }
                 var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
+                return SuccessResponse(response);
+            }
+            catch (WebException ex)
+            {
+                return WebExceptionResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResponse(ex);
+            }
+        }
+        public string RequestUrl(string url, Method method, string postData)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.DefaultConnectionLimit = 256;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                DefaultHeaders(request, method, null);
+                if (postData != null)
+                {
+                    var data = Encoding.UTF8.GetBytes(postData);
+                    request.ContentLength = data.Length;
+                    using (var stream = request.GetRequestStream())
+                    {
+                        stream.Write(data, 0, data.Length);
+                    }
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
+                return SuccessResponse(response);
+            }
+            catch (WebException ex)
+            {
+                return WebExceptionResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResponse(ex);
+            }
+        }
+        public string RequestUrl(string url, Method method, MultipartContent multipartContent)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.DefaultConnectionLimit = 256;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                DefaultHeaders(request, method, null);
+                if (multipartContent != null)
+                {
+                    string boundary = "----------------------------" + DateTime.Now.Ticks.ToString("x");
+                    request.ContentType = "multipart/form-data; boundary=" + boundary;
+                    using (var stream = request.GetRequestStream())
+                    {
+                        foreach (BytesContent bytesContent in multipartContent.BytesContent)
+                        {
+                            stream.Write(bytesContent.Content, bytesContent.Offset, bytesContent.Count);
+                        }
+                    }
+                }
+                var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
+                return SuccessResponse(response);
+            }
+            catch (WebException ex)
+            {
+                return WebExceptionResponse(ex);
+            }
+            catch (Exception ex)
+            {
+                return ExceptionResponse(ex);
+            }
+        }
+        public string RequestUrl(string url, Method method)
+        {
+            stopwatch.Reset();
+            stopwatch.Start();
+            try
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.DefaultConnectionLimit = 256;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                DefaultHeaders(request, method, null);
+                var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
                 return SuccessResponse(response);
             }
             catch (WebException ex)
@@ -204,6 +303,7 @@ namespace SpeedRequest
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, 0, null);
                 var response = (HttpWebResponse)request.GetResponse();
+                HttpWebResponseOther = response;
                 return SuccessResponse(response);
             }
             catch (WebException ex)
@@ -215,33 +315,13 @@ namespace SpeedRequest
                 return ExceptionResponse(ex);
             }
         }
-        public void ToFile(string url, string filename)
+        public void ToFile(string filename)
         {
-            stopwatch.Reset();
-            stopwatch.Start();
             try
             {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.DefaultConnectionLimit = 256;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
-                var request = (HttpWebRequest)WebRequest.Create(url);
-                DefaultHeaders(request, 0, null);
-                var response = (HttpWebResponse)request.GetResponse();
-                stopwatch.Stop();
-                statusCode = (int)response.StatusCode + " " + response.StatusCode.ToString();
-                error = false;
-                timeout = stopwatch.ElapsedMilliseconds + " ms";
-                List<Cookies> list_cookies = new List<Cookies>();
-                foreach (Cookie cok in response.Cookies)
-                {
-                    list_cookies.Add(new Cookies() { Name = cok.Name, Value = cok.Value, Domain = cok.Domain, Path = cok.Path, Port = cok.Port, Secure = cok.Secure, TimeStamp = cok.TimeStamp, Expires = cok.Expires, Expired = cok.Expired, Discard = cok.Discard, Comment = cok.Comment, CommentUri = cok.CommentUri, Version = cok.Version });
-                }
-                cookies = list_cookies.ToArray();
-                SetHeadersResponse(response);
                 byte[] buffer = new byte[1024];
                 FileStream fileStream = File.OpenWrite(filename);
-                using (Stream input = response.GetResponseStream())
+                using (Stream input = HttpWebResponseOther.GetResponseStream())
                 {
                     size = SizeSuffix(input.Length);
                     int size_ = input.Read(buffer, 0, buffer.Length);
@@ -254,44 +334,9 @@ namespace SpeedRequest
                 fileStream.Flush();
                 fileStream.Close();
             }
-            catch (WebException ex)
-            {
-                stopwatch.Stop();
-                if (Requests().IgnoreProtocolErrors == false) throw new Exception(ex.Message.ToString());
-                var response = (HttpWebResponse)ex.Response;
-                if (response != null)
-                {
-                    statusCode = response.StatusCode.ToString();
-                    error = true;
-                    errormessage = ex.Message.ToString();
-                    timeout = stopwatch.ElapsedMilliseconds + " ms";
-                    List<Cookies> list_cookies = new List<Cookies>();
-                    foreach (Cookie cok in response.Cookies)
-                    {
-                        list_cookies.Add(new Cookies() { Name = cok.Name, Value = cok.Value, Domain = cok.Domain, Path = cok.Path, Port = cok.Port, Secure = cok.Secure, TimeStamp = cok.TimeStamp, Expires = cok.Expires, Expired = cok.Expired, Discard = cok.Discard, Comment = cok.Comment, CommentUri = cok.CommentUri, Version = cok.Version });
-                    }
-                    cookies = list_cookies.ToArray();
-                    SetHeadersResponse(response);
-                    byte[] buffer = new byte[1024];
-                    FileStream fileStream = File.OpenWrite(filename);
-                    using (Stream input = response.GetResponseStream())
-                    {
-                        size = SizeSuffix(input.Length);
-                        int size_ = input.Read(buffer, 0, buffer.Length);
-                        while (size_ > 0)
-                        {
-                            fileStream.Write(buffer, 0, size_);
-                            size_ = input.Read(buffer, 0, buffer.Length);
-                        }
-                    }
-                    fileStream.Flush();
-                    fileStream.Close();
-                }
-                throw new Exception(ex.Message.ToString());
-            }
             catch (Exception ex)
             {
-                ExceptionResponse(ex);
+                throw new Exception(ex.Message.ToString());
             }
         }
     }

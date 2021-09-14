@@ -15,5 +15,6 @@
         public bool KeepAlive { get; set; }
         public RemoteProxy Proxy { get; set; }
         public Headers[] Headers { get; set; }
+        public void AddHeaders(string name, string value);
     }
 }
