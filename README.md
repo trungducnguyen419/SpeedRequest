@@ -76,6 +76,16 @@ Get receive the message body of the response:
 request.Requests().IgnoreProtocolErrors = true;
 ```
 
+Add Headers:
+```csharp
+request.Requests().AddHeaders("name", "value");
+```
+
+Add User-Agent:
+```csharp
+request.Requests().UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36";
+```
+
 Get response headers:
 ```csharp
 Headers[] headersResponse = request.Responses().HeadersResponse;
@@ -88,7 +98,7 @@ foreach (Headers headers in headersResponse)
 
 Download a file:
 ```csharp
-request.ToFile("https://example.com/file.zip", "C:\\myDownloadedFile.zip");
+request.ToFile("C:\\myDownloadedFile.zip");
 ```
 
 Get Cookies:
