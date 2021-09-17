@@ -39,7 +39,7 @@ using SpeedRequest;
 ```
 And use one of this code templates:
 ```csharp
-SpeedRequest request = null;
+HttpRequest request = null;
 try {
     request = new SpeedRequest();
     // Do something 
@@ -58,37 +58,38 @@ var multipartContent = new MultipartContent();
 multipartContent.AddString("login", "username");
 multipartContent.AddString("password", "password");
 multipartContent.AddFile(@"C:\hp.rar", "file1", "hp.rar");
-string response = request.RequestUrl("https://example.com", Method.POST, "application/x-www-form-urlencoded", multipartContent);
+string response = request.Post("https://example.com", Method.POST, "application/x-www-form-urlencoded", multipartContent).ToString();
 ```
 
 Get page source:
 ```csharp
-string response = request.RequestUrl("https://example.com");
+string response = request.Get("https://example.com").ToString();
 ```
 
 Post data:
 ```csharp
-string response = request.RequestUrl("https://example.com", Method.POST, "application/x-www-form-urlencoded", "login=username&password=password");
+string response = request.Post("https://example.com", Method.POST, "application/x-www-form-urlencoded", "login=username&password=password").ToString();
 ```
 
 Get receive the message body of the response:
 ```csharp
-request.Requests().IgnoreProtocolErrors = true;
+request.IgnoreProtocolErrors = true;
 ```
 
 Add Headers:
 ```csharp
-request.Requests().AddHeaders("name", "value");
+request.AddHeaders("name", "value");
 ```
 
 Add User-Agent:
 ```csharp
-request.Requests().UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36";
+request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36";
 ```
 
 Get response headers:
 ```csharp
-Headers[] headersResponse = request.Responses().HeadersResponse;
+var response = request.Get("https://example.com");
+Headers[] headersResponse = response.HeadersResponse;
 foreach (Headers headers in headersResponse)
 {
     // concat your string or do what you want
@@ -98,13 +99,14 @@ foreach (Headers headers in headersResponse)
 
 Download a file:
 ```csharp
-request.ToFile("C:\\myDownloadedFile.zip");
+var response = request.Get("https://example.com");
+response.ToFile("C:\\myDownloadedFile.zip");
 ```
 
 Get Cookies:
 ```csharp
-string response = request.RequestUrl("https://example.com");
-Cookies[] cookieResponse = request.Responses().Cookies;
+var response = request.Get("https://example.com");
+Cookies[] cookieResponse = response.Cookies;
 foreach (Cookies cookie in cookieResponse)
 {
     // concat your string or do what you want
