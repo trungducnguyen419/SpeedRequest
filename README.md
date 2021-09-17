@@ -41,7 +41,7 @@ And use one of this code templates:
 ```csharp
 HttpRequest request = null;
 try {
-    request = new SpeedRequest();
+    request = new HttpRequest();
     // Do something 
 }
 catch (WebException ex) {
