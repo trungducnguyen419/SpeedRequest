@@ -1,6 +1,0 @@
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\bin\Debug\SpeedRequest.dll
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\bin\Debug\SpeedRequest.pdb
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\obj\Debug\SpeedRequest.csproj.AssemblyReference.cache
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\obj\Debug\SpeedRequest.csproj.CoreCompileInputs.cache
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\obj\Debug\SpeedRequest.dll
-C:\Users\duc\source\repos\SpeedRequest\SpeedRequest\obj\Debug\SpeedRequest.pdb
