@@ -155,7 +155,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, contentType);
                 if (postData != null)
@@ -188,7 +187,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, contentType);
                 if (multipartContent != null)
@@ -224,7 +222,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, null);
                 if (postData != null)
@@ -257,7 +254,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, null);
                 if (multipartContent != null)
@@ -293,7 +289,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, 0, null);
                 var response = (HttpWebResponse)request.GetResponse();
@@ -317,7 +312,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, contentType);
                 if (postData != null)
@@ -350,7 +344,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, contentType);
                 if (multipartContent != null)
@@ -386,7 +379,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, null);
                 if (postData != null)
@@ -419,7 +411,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, method, null);
                 if (multipartContent != null)
@@ -455,7 +446,6 @@ namespace SpeedRequest
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.DefaultConnectionLimit = 256;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-                ServicePointManager.ServerCertificateValidationCallback = (snder, cert, chain, error) => true;
                 var request = (HttpWebRequest)WebRequest.Create(url);
                 DefaultHeaders(request, 0, null);
                 var response = (HttpWebResponse)request.GetResponse();
