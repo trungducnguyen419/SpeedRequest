@@ -78,6 +78,7 @@ request.IgnoreProtocolErrors = true;
 
 Add Headers:
 ```csharp
+request.Headers = new SpeedRequest.Headers[] { };
 request.AddHeaders("name", "value");
 ```
 
