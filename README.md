@@ -2,16 +2,11 @@
 SpeedRequest will help you run requests quickly and smoothly.
 
 ## Donate
-- **Paypal**: trungd419@gmail.com - Nguyen Trung Duc
+- **Paypal**: trungducnguyen419@gmail.com - Nguyen Trung Duc
 - **VietTinBank**: 104869915061 - Nguyen Trung Thanh
 - **MBBank**: 9704229287539964 - Nguyen Trung Thanh
 - **ViettelPay**: +84375724938 - Nguyen Trung Thanh
 ## Contacts
-- **Facebook**: [trungducmcgamer](https://www.facebook.com/trungducmcgamer/)  
-- **Instagram**: [trungducmcvn](https://www.instagram.com/trungducmcvn/)
-- **Github**: [trungducmcgamer](https://github.com/trungducmcgamer/)
-- **Youtube**: [trungducmcgamer](https://www.youtube.com/trungducmcgamer/)
-- **Discord**: [TrungDucMC_VN #2707](#)
 - **Zalo**: [+84375724938](#)
 - **E-Mail**: trungd419@gmail.com
 
