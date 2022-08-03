@@ -1,15 +1,5 @@
 # SpeedRequest
 SpeedRequest will help you run requests quickly and smoothly.
-
-## Donate
-- **Paypal**: trungducnguyen419@gmail.com - Nguyen Trung Duc
-- **VietTinBank**: 104869915061 - Nguyen Trung Thanh
-- **MBBank**: 9704229287539964 - Nguyen Trung Thanh
-- **ViettelPay**: +84375724938 - Nguyen Trung Thanh
-## Contacts
-- **Zalo**: [+84375724938](#)
-- **E-Mail**: trungd419@gmail.com
-
 # Installation via [NuGet](https://www.nuget.org/)
 ```
 Install-Package SpeedRequest
